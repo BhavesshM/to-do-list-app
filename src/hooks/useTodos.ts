@@ -17,7 +17,7 @@ export const useTodos = (filter?: { status?: string; priority?: string; category
     } finally {
       setLoading(false);
     }
-  }, [filter]);
+  }, [filter?.status, filter?.priority, filter?.category]);
 
   useEffect(() => {
     fetchTodos();

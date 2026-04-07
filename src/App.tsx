@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useTodos } from './hooks/useTodos';
 import { useCategories } from './hooks/useCategories';
 import { Header } from './components/Header';
@@ -18,11 +18,11 @@ function App() {
   const [selectedTodo, setSelectedTodo] = useState<Todo | undefined>();
   const [hasSearched, setHasSearched] = useState(false);
 
-  const filters = {
+  const filters = useMemo(() => ({
     status: selectedStatus || undefined,
     priority: selectedPriority || undefined,
     category: selectedCategory || undefined,
-  };
+  }), [selectedStatus, selectedPriority, selectedCategory]);
 
   const { todos, loading, error, createTodo, updateTodo, deleteTodo, completeTodo, searchTodos, refetch } =
     useTodos(filters);
